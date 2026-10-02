@@ -1,0 +1,223 @@
+#pragma once
+//深入指针第三讲
+
+//数组名=数组首元素的地址
+//两个例外
+//sizeof + 数组名，此时数组名代表整个数组，计算的是整个数组的长度
+//& + 数组名，取出的是整个数组的地址
+//初次之外，任何地方使用数组名，都是首元素的地址。
+//#include <stdio.h>
+//int main()
+//{
+//	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+//	printf("arr[0] = %p\n", &arr[0]);
+//	printf("arr    = %p\n", arr);
+//	printf("&arr   = %p\n", &arr);
+//	printf("arr[0]+1 = %p\n", &arr[0]+1);
+//	printf("arr   +1 = %p\n", arr+1);
+//	printf("&arr  +1 = %p\n", &arr+1);
+//	//数组的地址和首元素地址长得很像，但是具体类型却是不一样
+//	// 
+//	//都是车头来表达，但是数组地址是车头加车位，单元素地址只是一节车厢
+//	return 0;
+//}
+
+//使用指针访问数组
+//#include <stdio.h>
+//int main()
+//{
+//	int arr[10] = { 0 };
+//	int* p = arr;
+//	int i = 0;
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	for (i = 0;i < sz;i++)
+//	{
+//		*p = i + 1;
+//		p++;
+//	}
+//	//打印
+//	p = arr;   //防止越界访问，回到第一个再走
+//	for (i = 0;i < sz;i++)
+//	{
+//		printf("%d ", *(p+i));
+//	}
+//	return 0;
+//}
+
+//一维数组传参的本质
+#include <stdio.h>
+//					实际是指针，首元素的地址，（数组降级）
+//void find_length(int arr[10])
+//{
+//	//int sz2 = sizeof(arr) / sizeof(arr[0]);
+//	//printf("sz2 = %d\n", sz2);
+//}
+//int main()
+//{
+//	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	printf("sz = %d\n", sz);
+//	//求出该数组长度
+//	find_length(arr);
+//
+//	return 0;
+//}
+//
+//				既然为指针，那就直接指针来表示全部数组，传过来的就是完整的数组
+//void find_length(int* arr, int sz)
+//{
+//	//int sz2 = sizeof(arr) / sizeof(arr[0]);
+//	//printf("sz2 = %d\n", sz2); 
+//	int i = 0;
+//	for (i = 0;i < sz;i++)
+//	{
+//		printf("%d ", *(arr + i));
+//	}
+//}
+//int main()
+//{
+//	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	printf("sz = %d\n", sz);
+//	//求出该数组长度
+//	find_length(arr, sz);
+//
+//	return 0;
+//}
+
+//冒泡排序
+//#include <stdio.h>
+//void bibble_sequence(int* arr,int sz)
+//{
+//	int i = 0;
+//	for (i = 0;i < sz-1;i++)
+//	{
+//		int j = 0;
+//		int flag = 1;
+//		for (j = 0;j < sz - 1 - i;j++)
+//		{
+//			if (*(arr+j) > *(arr + j+1))
+//			{
+//				flag = 0;
+//				int tmp = *(arr + j);
+//				*(arr + j) = *(arr + j + 1);
+//				*(arr + j + 1) = tmp;
+//			}
+//		}
+//		if (flag == 1)
+//		{
+//			break;
+//		}
+//	}
+//}
+//printf_content(int arr[], int sz)
+//{
+//	int i = 0;
+//	for (i = 0;i < sz;i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//int main()
+//{
+//	int arr[] = { 8,4,5,7,1,2,3,6,9,0 };
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	bibble_sequence(arr,sz);
+//	printf_content(arr,sz);
+//	return 0;
+//}
+//
+//二级指针(套娃）
+//#include <stdio.h>
+//int main()
+//{
+//	int a = 10;
+//	int* p = &a;     //p为指针变量 （一级指针）
+//	int** pa = &p;   //pa为指针变量（二级指针）
+//	int*** ppa = &pa;//ppa为指针变量（三级指针） 很少用了
+//	int len = **pa;
+//	printf("%d", len);
+//	return 0;
+//}
+//
+//指针数组
+//利用指针来模拟二维数组
+//#include <stdio.h>
+//int main()
+//{
+//	int arr1[5] = { 1,2,3,4,5 };
+//	int arr2[5] = { 2,3,4,5,6 };
+//	int arr3[5] = { 3,4,5,6,7 };
+//	int* p[3] = { arr1,arr2,arr3 };
+//	int i = 0;
+//	for (i = 0;i < 3;i++)
+//	{
+//		int j = 0;
+//		for (j = 0;j < 5;j++)
+//		{
+//			printf("%d ", p[i][j]);
+//		}
+//		printf("\n");
+//	}
+//	return 0;
+//}
+
+//深入理解指针（第四讲）
+//字符指针变量
+//#include <stdio.h>
+//int main()
+//{
+//	char* ch = "abcdefg";//“abcdefg”为常量字符串，ch实际存储的是a的地址
+//	printf("%c ", *ch);
+//	printf("%s ", ch);
+//	return 0;
+//}
+//#include <stdio.h>
+//
+//int main()
+//{
+//    char str1[] = "hello bit.";
+//    char str2[] = "hello bit.";
+//
+//    const char* str3 = "hello bit.";
+//    const char* str4 = "hello bit.";
+//
+//    if (str1 == str2) // 比较的是数组的起始地址,同样的图纸，盖的楼位置却不一样
+//        printf("str1 and str2 are same"); // 1
+//    else
+//            printf("str1 and str2 are not same"); // 2
+//
+//    if (str3 == str4) // 比较的是指针变量的内容，门派号是一样的，都是102房间
+//        printf("str3 and str4 are same"); // 3
+//    else
+//        printf("str3 and str4 are not same"); // 4
+//
+//    return 0;
+//}
+//#include <stdio.h>
+//int main()
+//{
+//	char* p[3] = { "zhangsan","lisi","wangwu" };
+//	int i = 0;
+//	for (i = 0;i < 3;i++)
+//	{
+//		printf("%s ", p[i]);
+//	}
+//	return 0;
+//}
+
+//数组指针变量
+//#include <stdio.h>
+//int main()
+//{
+//	int arr[3] = { 1,2,3 };
+//	int(*p)[3] =  &arr;
+//	//*是指针的标志，
+//	//int 为p指向的数组的元素类型 
+//	//p   为指针变量名
+//	//[3] 为p指针指向数组的元素个数
+//	char arr2[5] = { 'a','b','c','d','e' };
+//	char(*pa)[5] = &arr2;
+//	return 0;
+//}
